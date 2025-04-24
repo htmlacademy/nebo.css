@@ -1,0 +1,102 @@
+.nebo {
+  --nb-r: 20px;
+  --nb-w: 20px;
+  --nb-h: 20px;
+
+  --_nb-smooth: 98%;
+
+  /* Curve positions list */
+  --_nb-curve-pos-tl: 0 0;
+  --_nb-curve-pos-tr: 100% 0;
+  --_nb-curve-pos-bl: 0 100%;
+  --_nb-curve-pos-br: 100% 100%;
+
+  /* Setting default curve position (bottom right corner) */
+  --_nb-curve-pos: var(--_nb-curve-pos-br);
+
+  --_nb-mask-image: 
+    linear-gradient(to bottom, #000, #000),
+    linear-gradient(to bottom, #000, #000),
+    linear-gradient(to bottom, #000, #000),
+    linear-gradient(to bottom, #000, #000),
+    radial-gradient(circle closest-side at center, #000 var(--_nb-smooth), transparent 100%),
+    radial-gradient(circle closest-side at center, #000 var(--_nb-smooth), transparent 100%),
+    radial-gradient(circle farthest-side at var(--_nb-curve-pos), transparent var(--_nb-smooth), #000 100%);
+
+  --_nb-mask-size: 
+    100% calc(100% - var(--nb-h) - var(--nb-r) * 3),
+    calc(100% - var(--nb-r)) calc(100% - var(--nb-h) - var(--nb-r) * 2),
+    calc(100% - var(--nb-w) - var(--nb-r) * 2) calc(100% - var(--nb-r)),
+    calc(100% - var(--nb-w) - var(--nb-r) * 3) 100%,
+    calc(var(--nb-r) * 2) calc(var(--nb-r) * 2),
+    calc(var(--nb-r) * 2) calc(var(--nb-r) * 2),
+    calc(var(--nb-r) + 0.5px) calc(var(--nb-r) + 0.5px);
+
+  /* Masks positions list */
+  --_nb-mask-position-tl: 
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    0 calc(var(--nb-h) + var(--nb-r) * 2),
+    calc(var(--nb-w) + var(--nb-r) * 2) 0,
+    calc(var(--nb-w) + var(--nb-r)) calc(var(--nb-h) + var(--nb-r)),
+    calc(var(--nb-w) + var(--nb-r)) calc(var(--nb-h) + var(--nb-r));
+
+  --_nb-mask-position-tr: 
+    0 100%,
+    0 100%,
+    0 100%,
+    0 100%,
+    100% calc(var(--nb-h) + var(--nb-r) * 2),
+    calc(100% - var(--nb-w) - var(--nb-r) * 2) 0,
+    calc(100% - var(--nb-w) - var(--nb-r)) calc(var(--nb-h) + var(--nb-r)),
+    calc(100% - var(--nb-w) - var(--nb-r)) calc(var(--nb-h) + var(--nb-r));
+
+  --_nb-mask-position-bl: 
+    100% 0,
+    100% 0,
+    100% 0,
+    100% 0,
+    0 calc(100% - var(--nb-h) - var(--nb-r) * 2),
+    calc(var(--nb-w) + var(--nb-r) * 2) 100%,
+    calc(var(--nb-w) + var(--nb-r)) calc(100% - var(--nb-h) - var(--nb-r)),
+    calc(var(--nb-w) + var(--nb-r)) calc(100% - var(--nb-h) - var(--nb-r));
+
+  --_nb-mask-position-br: 
+    0 0,
+    0 0,
+    0 0,
+    0 0,
+    100% calc(100% - var(--nb-h) - var(--nb-r) * 2),
+    calc(100% - var(--nb-w) - var(--nb-r) * 2) 100%,
+    calc(100% - var(--nb-w) - var(--nb-r)) calc(100% - var(--nb-h) - var(--nb-r));
+
+  /* Setting default mask position (bottom right corner) */
+  --_nb-mask-position: var(--_nb-mask-position-br);
+
+  mask-image: var(--_nb-mask-image);
+  mask-size: var(--_nb-mask-size);
+  mask-position: var(--_nb-mask-position);
+  mask-repeat: no-repeat;
+}
+
+.nebo--tl {
+  --_nb-curve-pos: var(--_nb-curve-pos-tl);
+  --_nb-mask-position: var(--_nb-mask-position-tl);
+}
+
+.nebo--tr {
+  --_nb-curve-pos: var(--_nb-curve-pos-tr);
+  --_nb-mask-position: var(--_nb-mask-position-tr);
+}
+
+.nebo--bl {
+  --_nb-curve-pos: var(--_nb-curve-pos-bl);
+  --_nb-mask-position: var(--_nb-mask-position-bl);
+}
+
+.nebo--br {
+  --_nb-curve-pos: var(--_nb-curve-pos-br);
+  --_nb-mask-position: var(--_nb-mask-position-br);
+}
