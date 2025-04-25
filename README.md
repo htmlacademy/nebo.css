@@ -2,36 +2,35 @@
 
 Negative border radius made easy
 
-> Nebo.css — это чистое CSS-решение, которое позволяет добавлять на элементы «выпуклый» или «вогнутый» пазловый угол без
-> SVG и JavaScript. Все управляется через кастомные CSS-переменные.
+> Nebo.css is a pure CSS solution that allows you to add a “convex” or “concave” puzzle angle to elements without
+> SVG and JavaScript. Everything is controlled via custom CSS variables.
 
 ## Преимущества
 
-- ⚡ Только CSS — никаких изображений или скриптов;
-- 🎛 Гибкая настройка через переменные:
-  - `--nb-r` — радиус основного скругления;
-  - `--nb-w` — ширина выступа/выреза;
-  - `--nb-h` — высота выступа/выреза;
+- ⚡ CSS only — no images or scripts;
+- 🎛 Flexible customization via variables:
+  - `--nb-r` - radius of main rounding;
+  - `--nb-w` - width of protrusion/cutout;
+  - `--nb-h` - height of protrusion/cutout;
+- 🧩 4 modifiers for angle positioning: `.nebo--tl`, `.nebo--tr`, `.nebo--bl`, `.nebo--br`;
+  ![Example of using modifiers](assets/examples.jpg)
+- 🖼 Supports any backgrounds (solid colors, gradients, images);
+- 🕸 Modern browser support (mask-image).
 
-- 🧩 4 модификатора для позиционирования угла: `.nebo--tl`, `.nebo--tr`, `.nebo--bl`, `.nebo--br`;
-  ![Пример использования модификаторов](assets/examples.jpg)
-- 🖼 Поддерживает любые фоны (сплошные цвета, градиенты, изображения);
-- 🕸 Современная браузерная поддержка (mask-image).
-
-## Пример использования
+## Example of use
 
 ```html
 
 <div class="card nebo nebo--br">
-  Контент карточки
+  Card Content
 </div>
 ```
 
 ```css
 .card {
-  --nb-r: 24px; /* радиус скругления */
-  --nb-w: 28px; /* ширина выступа */
-  --nb-h: 28px; /* высота выступа */
+  --nb-r: 24px; /* radius of curvature  */
+  --nb-w: 28px; /* protrusion width */
+  --nb-h: 28px; /* protrusion height */
   background: linear-gradient(135deg, #b98bff, #6244d6);
   padding: 2rem;
   color: #fff;
@@ -39,7 +38,7 @@ Negative border radius made easy
 }
 ```
 
-Комбинируем модификаторы, чтобы получить четырёхкомпонентный пазл:
+Combine modifiers to get a four-piece puzzle:
 
 ```html
 
@@ -51,11 +50,11 @@ Negative border radius made easy
 </div>
 ```
 
-## Браузерная поддержка
+## Browser support
 
-| Браузер | Версия | 
-|---------|--------|
-| Chrome  | 60+    |
-| Edge    | 79+    |
-| Firefox | 53+    |
-| Safari  | 14+    |
+| Browser | Version | 
+|---------|---------|
+| Chrome  | 60+     |
+| Edge    | 79+     |
+| Firefox | 53+     |
+| Safari  | 14+     |
