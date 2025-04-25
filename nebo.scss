@@ -1,0 +1,131 @@
+@use "sass:meta";
+@use "sass:map";
+
+// Базовые CSS-переменные
+.nebo {
+  --nb-r: 20px;
+  --nb-w: 20px;
+  --nb-h: 20px;
+  --_nb-smooth: 98%;
+}
+
+// Миксин для генерации mask-свойств
+@mixin apply-nebo-corner(
+  $r: var(--nb-r),
+  $w: var(--nb-w),
+  $h: var(--nb-h),
+  $corner: "br"
+) {
+  // Проверка типа с использованием meta.type-of
+  $radius: if(meta.type-of($r) == "number", $r, var(--nb-r));
+  $width: if(meta.type-of($w) == "number", $w, var(--nb-w));
+  $height: if(meta.type-of($h) == "number", $h, var(--nb-h));
+  $smooth: var(--_nb-smooth);
+
+  // Позиция скругления с использованием map.get
+  $positions: (
+    "tl": 0 0,
+    "tr": 100% 0,
+    "bl": 0 100%,
+    "br": 100% 100%,
+  );
+  $curve-pos: map.get($positions, $corner);
+
+  // Генерация mask-image
+  $mask-image:
+    linear-gradient(to bottom, #000, #000),
+    linear-gradient(to bottom, #000, #000),
+    linear-gradient(to bottom, #000, #000),
+    linear-gradient(to bottom, #000, #000),
+    radial-gradient(
+      circle closest-side at center,
+      #000 $smooth,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle closest-side at center,
+      #000 $smooth,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle farthest-side at #{$curve-pos},
+      transparent $smooth,
+      #000 100%
+    );
+
+  // Генерация mask-size
+  $mask-size:
+    100% calc(100% - #{$height} - #{$radius} * 3),
+    calc(100% - #{$radius}) calc(100% - #{$height} - #{$radius} * 2),
+    calc(100% - #{$width} - #{$radius} * 2) calc(100% - #{$radius}),
+    calc(100% - #{$width} - #{$radius} * 3) 100%,
+    calc(#{$radius} * 2) calc(#{$radius} * 2),
+    calc(#{$radius} * 2) calc(#{$radius} * 2),
+    calc(#{$radius} + 0.5px) calc(#{$radius} + 0.5px);
+
+  // Генерация mask-position с использованием map.get
+  $mask-positions: (
+    "tl": (
+      100% 100%,
+      100% 100%,
+      100% 100%,
+      100% 100%,
+      0 calc(#{$height} + #{$radius} * 2),
+      calc(#{$width} + #{$radius} * 2) 0,
+      calc(#{$width} + #{$radius}) calc(#{$height} + #{$radius}),
+    ),
+    "tr": (
+      0 100%,
+      0 100%,
+      0 100%,
+      0 100%,
+      100% calc(#{$height} + #{$radius} * 2),
+      calc(100% - #{$width} - #{$radius} * 2) 0,
+      calc(100% - #{$width} - #{$radius}) calc(#{$height} + #{$radius}),
+    ),
+    "bl": (
+      100% 0,
+      100% 0,
+      100% 0,
+      100% 0,
+      0 calc(100% - #{$height} - #{$radius} * 2),
+      calc(#{$width} + #{$radius} * 2) 100%,
+      calc(#{$width} + #{$radius}) calc(100% - #{$height} - #{$radius}),
+    ),
+    "br": (
+      0 0,
+      0 0,
+      0 0,
+      0 0,
+      100% calc(100% - #{$height} - #{$radius} * 2),
+      calc(100% - #{$width} - #{$radius} * 2) 100%,
+      calc(100% - #{$width} - #{$radius}) calc(100% - #{$height} - #{$radius}),
+    ),
+  );
+  $mask-position: map.get($mask-positions, $corner);
+
+  // Применение стилей
+  mask-image: $mask-image;
+  mask-size: $mask-size;
+  mask-position: $mask-position;
+  mask-repeat: no-repeat;
+}
+
+// Базовый класс
+.nebo {
+  @include apply-nebo-corner();
+
+  // Модификаторы углов
+  &--tl {
+    @include apply-nebo-corner($corner: "tl");
+  }
+  &--tr {
+    @include apply-nebo-corner($corner: "tr");
+  }
+  &--bl {
+    @include apply-nebo-corner($corner: "bl");
+  }
+  &--br {
+    @include apply-nebo-corner($corner: "br");
+  }
+}
