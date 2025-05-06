@@ -58,3 +58,8 @@ Combine modifiers to get a four-piece puzzle:
 | Edge    | 79+     |
 | Firefox | 53+     |
 | Safari  | 14+     |
+
+## Translations
+
+- [RU](./README_ru.md)
+- [EN](./README.md)
