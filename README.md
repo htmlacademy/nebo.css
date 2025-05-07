@@ -5,7 +5,7 @@ Negative border radius made easy
 > Nebo.css is a pure CSS solution that allows you to add a “convex” or “concave” puzzle angle to elements without
 > SVG and JavaScript. Everything is controlled via custom CSS variables.
 
-## Преимущества
+## Features
 
 - ⚡ CSS only — no images or scripts;
 - 🎛 Flexible customization via variables:
