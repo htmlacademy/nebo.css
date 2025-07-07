@@ -1,0 +1,170 @@
+.nebo {
+  --nb-r: 20px;
+  --nb-w: 20px;
+  --nb-h: 20px;
+
+  /* Fine-tuned radiuses */
+  --nb-cor1-rw: var(--nb-r);
+  --nb-cor1-rh: var(--nb-r);
+  --nb-cor2-rw: var(--nb-r);
+  --nb-cor2-rh: var(--nb-r);
+  --nb-curve-rw: var(--nb-r);
+  --nb-curve-rh: var(--nb-r);
+
+  --_nb-smooth: 98%;
+
+  /* Curve positions list */
+  --_nb-curve-pos-tl: 0 0;
+  --_nb-curve-pos-tr: 100% 0;
+  --_nb-curve-pos-bl: 0 100%;
+  --_nb-curve-pos-br: 100% 100%;
+
+  /* Setting default curve position (bottom right corner) */
+  --_nb-curve-pos: var(--_nb-curve-pos-br);
+
+  /* Corner mask shapes */
+  --_nb-mask-image:
+    linear-gradient(to bottom, #000 0 100%),
+    linear-gradient(to bottom, #000 0 100%),
+    linear-gradient(to bottom, #000 0 100%),
+    linear-gradient(to bottom, #000 0 100%),
+    radial-gradient(closest-side at center, #000 var(--_nb-smooth), transparent 100%),
+    radial-gradient(closest-side at center, #000 var(--_nb-smooth), transparent 100%),
+    radial-gradient(farthest-side at var(--_nb-curve-pos), transparent var(--_nb-smooth), #000 100%);
+
+  /* Corner mask sizes */
+  --_nb-mask-size:
+    100% calc(100% - var(--nb-h) - var(--nb-cor1-rh) - var(--nb-curve-rh) - var(--nb-cor2-rh)),
+    calc(100% - var(--nb-cor1-rw)) calc(100% - var(--nb-h) - var(--nb-curve-rh) - var(--nb-cor2-rh)),
+    calc(100% - var(--nb-w) - var(--nb-curve-rw) - var(--nb-cor1-rw)) calc(100% - var(--nb-cor2-rh)),
+    calc(100% - var(--nb-w) - var(--nb-cor1-rw) - var(--nb-curve-rw) - var(--nb-cor2-rw)) 100%,
+    calc(var(--nb-cor1-rw) * 2) calc(var(--nb-cor1-rh) * 2),
+    calc(var(--nb-cor2-rw) * 2) calc(var(--nb-cor2-rh) * 2),
+    calc(var(--nb-curve-rw) + 0.5px) calc(var(--nb-curve-rh) + 0.5px);
+
+  /* Masks positions list */
+  --_nb-mask-position-tl:
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    0 calc(var(--nb-h) + var(--nb-curve-rh) + var(--nb-cor2-rh)),
+    calc(var(--nb-w) + var(--nb-cor1-rw) + var(--nb-curve-rw)) 0,
+    calc(var(--nb-w) + var(--nb-cor1-rw)) calc(var(--nb-h) + var(--nb-cor2-rh));
+
+  --_nb-mask-position-tr:
+    0 100%,
+    0 100%,
+    0 100%,
+    0 100%,
+    100% calc(var(--nb-h) + var(--nb-curve-rh) + var(--nb-cor2-rh)),
+    calc(100% - var(--nb-w) - var(--nb-curve-rw) - var(--nb-cor1-rw)) 0,
+    calc(100% - var(--nb-w) - var(--nb-cor1-rw)) calc(var(--nb-h) + var(--nb-cor2-rh));
+
+  --_nb-mask-position-bl:
+    100% 0,
+    100% 0,
+    100% 0,
+    100% 0,
+    0 calc(100% - var(--nb-h) - var(--nb-curve-rh) - var(--nb-cor2-rh)),
+    calc(var(--nb-w) + var(--nb-curve-rw) + var(--nb-cor1-rw)) 100%,
+    calc(var(--nb-w) + var(--nb-cor1-rw)) calc(100% - var(--nb-h) - var(--nb-cor2-rh));
+
+  --_nb-mask-position-br:
+    0 0,
+    0 0,
+    0 0,
+    0 0,
+    100% calc(100% - var(--nb-h) - var(--nb-curve-rh) - var(--nb-cor2-rh)),
+    calc(100% - var(--nb-w) - var(--nb-curve-rw) - var(--nb-cor1-rw)) 100%,
+    calc(100% - var(--nb-w) - var(--nb-cor1-rw)) calc(100% - var(--nb-h) - var(--nb-cor2-rh));
+
+  /* Setting default mask position (bottom right corner) */
+  --_nb-mask-position: var(--_nb-mask-position-br);
+
+  mask-image: var(--_nb-mask-image);
+  mask-size: var(--_nb-mask-size);
+  mask-position: var(--_nb-mask-position);
+  mask-repeat: no-repeat;
+}
+
+/* Mixin with optional parameters */
+@mixin apply-nebo-corner(
+  $radius: null,
+
+  $cor1-rw: null,
+  $cor1-rh: null,
+  $cor2-rw: null,
+  $cor2-rh: null,
+  $curve-rw: null,
+  $curve-rh: null,
+
+  $width: null,
+  $height: null,
+  $corner: null
+) {
+  /* Apply custom shared radius if provided  */
+  @if $radius != null {
+    --nb-r:        #{$radius};
+    --nb-cor1-rw:  #{$radius};
+    --nb-cor1-rh:  #{$radius};
+    --nb-cor2-rw:  #{$radius};
+    --nb-cor2-rh:  #{$radius};
+    --nb-curve-rw: #{$radius};
+    --nb-curve-rh: #{$radius};
+  }
+
+  /* Apply custom values only if provided */
+  @if $cor1-rw != null {
+    --nb-cor1-rw: #{$cor1-rw};
+  }
+  @if $cor1-rh != null {
+    --nb-cor1-rh: #{$cor1-rh};
+  }
+  @if $cor2-rw != null {
+    --nb-cor2-rw: #{$cor2-rw};
+  }
+  @if $cor2-rh != null {
+    --nb-cor2-rh: #{$cor2-rh};
+  }
+  @if $curve-rw != null {
+    --nb-curve-rw: #{$curve-rw};
+  }
+  @if $curve-rh != null {
+    --nb-curve-rh: #{$curve-rh};
+  }
+
+  @if $width != null {
+    --nb-w: #{$width};
+  }
+  @if $height != null {
+    --nb-h: #{$height};
+  }
+
+  /* Curve position override (safe corner check) */
+  @if $corner == "tl" or $corner == "tr" or $corner == "bl" or $corner == "br" {
+    --_nb-curve-pos: var(--_nb-curve-pos-#{$corner});
+    --_nb-mask-position: var(--_nb-mask-position-#{$corner});
+  }
+}
+
+  /* Base class */
+.nebo {
+  @include apply-nebo-corner();
+
+  &--tl {
+    @include apply-nebo-corner($corner: "tl");
+  }
+
+  &--tr {
+    @include apply-nebo-corner($corner: "tr");
+  }
+
+  &--bl {
+    @include apply-nebo-corner($corner: "bl");
+  }
+
+  &--br {
+    @include apply-nebo-corner($corner: "br");
+  }
+}
