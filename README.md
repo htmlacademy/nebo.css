@@ -12,10 +12,13 @@ Negative border radius made easy
   - `--nb-r` - radius of main rounding;
   - `--nb-w` - width of protrusion/cutout;
   - `--nb-h` - height of protrusion/cutout;
+  - `--nb-cor1-rw`, `--nb-cor1-rh` - first corner radius (width/height);
+  - `--nb-cor2-rw`, `--nb-cor2-rh` - second corner radius (width/height);
+  - `--nb-curve-rw`, `--nb-curve-rh` - curve radius (width/height);
 - 🧩 4 modifiers for angle positioning: `.nebo--tl`, `.nebo--tr`, `.nebo--bl`, `.nebo--br`;
   ![Example of using modifiers](assets/examples.jpg)
 - 🖼 Supports any backgrounds (solid colors, gradients, images);
-- 🕸 Modern browser support (mask-image).
+- 🔧 SCSS mixin for advanced customization: `@include apply-nebo-corner()`.
 
 ## Example of use
 
@@ -48,6 +51,35 @@ Combine modifiers to get a four-piece puzzle:
   <div class="nebo nebo--bl"></div>
   <div class="nebo nebo--br"></div>
 </div>
+```
+
+## SCSS Usage
+
+For more precise control, use the SCSS mixin:
+
+```scss
+.custom-puzzle {
+  @include apply-nebo-corner(
+    $radius: 24px,        // Set all radiuses to 24px
+    $width: 32px,         // Set protrusion width
+    $height: 28px,        // Set protrusion height
+    $corner: "br"         // Position at bottom-right
+  );
+}
+
+.asymmetric-puzzle {
+  @include apply-nebo-corner(
+    $cor1-rw: 20px,       // First corner width radius
+    $cor1-rh: 16px,       // First corner height radius
+    $cor2-rw: 24px,       // Second corner width radius
+    $cor2-rh: 20px,       // Second corner height radius
+    $curve-rw: 18px,      // Curve width radius
+    $curve-rh: 14px,      // Curve height radius
+    $width: 30px,
+    $height: 25px,
+    $corner: "tl"
+  );
+}
 ```
 
 ## Browser support
